@@ -46,7 +46,6 @@ Note: if you are using a `<paper-drawer-panel>`, it might be wise to use the fol
     :host {
       position: relative;
       display: block;
-      overflow-x: hidden;
     }
     :host > ::content > * {
       position: absolute;
@@ -192,7 +191,8 @@ Note: if you are using a `<paper-drawer-panel>`, it might be wise to use the fol
           'iron-deselect': '_onIronDeselectItem',
           'iron-select': '_onIronSelectItem',
           'track': '_onTrack',
-          'iron-resize': '_onResize'
+          'iron-resize': '_onResize',
+          'swipeable-toggled':'_onSwipeableToggled'
         },
 
         // Element Lifecycle
@@ -201,7 +201,9 @@ Note: if you are using a `<paper-drawer-panel>`, it might be wise to use the fol
           this.setScrollDirection('y');
           this._animatedPages = [];
         },
-
+        _onSwipeableToggled:function(event){
+          this.swipeDisabled=!event.detail.swipeable
+        },
         // Element page set up
 
         _onItemsChanged: function(event) {
@@ -247,7 +249,7 @@ Note: if you are using a `<paper-drawer-panel>`, it might be wise to use the fol
         // Element tracking
         _onTrack: function(event) {
           var track = event.detail;
-
+          console.log(event)
           if (this._isSwipeDisabled() || (this.noCycle && !this._canCycle(track))) {
             return;
           }
