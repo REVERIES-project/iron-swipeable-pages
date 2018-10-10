@@ -241,6 +241,14 @@ The demo won't work at the moment
         },
 
         _isSwipeDisabled: function() {
+          if(this && this.__data__ && this.__data__.items && this.__data__.selected>-1 && this.__data__.items[this.__data__.selected] ){
+            let selected=this.__data__.selected
+            let item= this.__data__.items[selected]
+            if(item.isSwipeable){
+              return false
+            }
+            return true
+          }
           return this.disabled || this.swipeDisabled;
         },
 
